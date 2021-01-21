@@ -1,0 +1,7 @@
+{
+	"to_seed": "users",
+  	"data": [ 
+  		{ "id": null, "name": "Katheesh", "email": "katheesh@email.com", "password" : "123456" },
+  		{ "id": null, "name": "Doe", "email": "doe@email.com", "password" : "doe" }
+  	]
+}

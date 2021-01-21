@@ -1,0 +1,24 @@
+<%- include('../layout/header.ejs') %>
+<br>
+<form id='login-form' action="/login" method='post'>
+  <div class="box">
+    <center><h2>Login here</h2></center>
+    <input type="email" placeholder="Username" id="email" name="email" required>
+    <%= errors.email.msg %>
+    <input type="password" placeholder="Password" id="password" name="password"  required>
+    <%= errors.password.msg %>
+    <button type='submit'>Login</button>
+  </div>
+  <center><a href="/register"><label for='form-switch'>Are you new? Register Here</label></a></center>
+</form>
+
+<!-- /* The NodeJS Framework for Smart Back-End
+   ▄█   ▄█▄    ▄████████    ▄████████    ▄████████ ▄██   ▄   
+  ███ ▄███▀   ███    ███   ███    ███   ███    ███ ███   ██▄ 
+  ███▐██▀     ███    ███   ███    █▀    ███    █▀  ███▄▄▄███ 
+ ▄█████▀      ███    ███   ███         ▄███▄▄▄     ▀▀▀▀▀▀███ 
+▀▀█████▄    ▀███████████ ▀███████████ ▀▀███▀▀▀     ▄██   ███ 
+  ███▐██▄     ███    ███          ███   ███        ███   ███ 
+  ███ ▀███▄   ███    ███    ▄█    ███   ███        ███   ███ 
+  ███   ▀█▀   ███    █▀   ▄████████▀    ███         ▀█████▀  
+  ▀ Author : S.Katheeskumar [https://katheesh.github.io] */ -->

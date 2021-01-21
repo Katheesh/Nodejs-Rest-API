@@ -1,0 +1,42 @@
+{
+  "name": "kasfy",
+  "version": "1.0.0",
+  "description": "The NodeJS Framework for Smart Back-End",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon node ./node_modules/babel-cli/bin/babel-node.js server.js",
+    "migrate": "node ./config/migrate.js",
+    "migrate:fresh": "node ./config/migrate_fresh.js"
+  },
+  "author": "S.Katheeskumar [https://katheesh.github.io]",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "6.11.4",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-polyfill": "6.9.1",
+    "babel-preset-node6": "11.0.0",
+    "express": "4.14.0",
+    "nodemon": "^1.10.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "babel": {
+    "presets": [
+      "node6"
+    ],
+    "plugins": [
+      "transform-decorators-legacy"
+    ]
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express-session": "^1.17.1",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "kasfy-server": "0.0.3",
+    "mysql": "^2.18.1"
+  }
+}

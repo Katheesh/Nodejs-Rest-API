@@ -1,0 +1,24 @@
+<%- include('../layout/header.ejs') %>
+<br>
+<form id='register-form' action="/register" method='post'>
+  <div class="box">
+    <center><h2>Register here</h2></center>
+    <input type="text" placeholder="Username" name="username" id="username" required><%= errors.username.msg %>
+    <input type="email" placeholder="Email" name="email" id="email" required><%= errors.email.msg %>
+    <input type="password" placeholder="Password" name="password" id="password" required><%= errors.password.msg %>
+    <input type="password" placeholder="Re Password" required>
+    <button type='submit'>Register</button>
+  </div>
+  <center><a href="/login"><label for='form-switch'>Already Member ? Sign In Now..</label></a></center>
+</form>
+
+<!-- /* The NodeJS Framework for Smart Back-End
+   ▄█   ▄█▄    ▄████████    ▄████████    ▄████████ ▄██   ▄   
+  ███ ▄███▀   ███    ███   ███    ███   ███    ███ ███   ██▄ 
+  ███▐██▀     ███    ███   ███    █▀    ███    █▀  ███▄▄▄███ 
+ ▄█████▀      ███    ███   ███         ▄███▄▄▄     ▀▀▀▀▀▀███ 
+▀▀█████▄    ▀███████████ ▀███████████ ▀▀███▀▀▀     ▄██   ███ 
+  ███▐██▄     ███    ███          ███   ███        ███   ███ 
+  ███ ▀███▄   ███    ███    ▄█    ███   ███        ███   ███ 
+  ███   ▀█▀   ███    █▀   ▄████████▀    ███         ▀█████▀  
+  ▀ Author : S.Katheeskumar [https://katheesh.github.io] */ -->
