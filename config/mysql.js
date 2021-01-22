@@ -122,14 +122,14 @@ export default class mysqlConnection {
 		                const secret = process.env.JWT_SECRET;
 		                const token = jwt.sign(payload, secret, options);
 
-						return res.json({loggedin: email, token: token});
+						return res.json({status: 1, loggedin: email, token: token});
 
 					} else {
-						return res.json({loggedin: null, token: null});
+						return res.json({status: 0, loggedin: null, token: null});
 					}
 				});	
 			} else {
-				return res.json({loggedin: null, token: null});
+				return res.json({status: 0, loggedin: null, token: null});
 			}		
 		});
 	}
