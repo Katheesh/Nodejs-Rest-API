@@ -12,44 +12,28 @@ export default class StoreController {
 		this.mysql = new mysqlSetup();
 	}
 
-	tokenVerify(token) {
 
-		jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {	
-			
-			console.log(decoded);
-   	
-		    return decoded;
-	    });
-	}
-
-	async storeList(req, res) {
+	async storeList(req, res, next) {
 		//Display a listing of the resource.
+
 		if (req.headers.authorization) {
-			//var approveStatus =  await this.tokenVerify(req.headers.authorization);
-			//console.log(approveStatus);\\
+			try{
+				const decoded = await jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
 
-/*			let q = 'SELECT store_id, name FROM stores;';
-			this.mysql.selectQuery(req, res, q);*/
-
-			jwt.verify(req.headers.authorization, process.env.JWT_SECRET, function (err, decoded) {	
-			
-				console.log(decoded);
-				let q = 'SELECT store_id, name FROM stores;';
-				const rest = this.mysql.selectQuery(req, res, q);
-
-				/*if ( decoded != undefined) {
-					
+				if ( decoded != undefined) {
+					let q = 'SELECT store_id, name FROM stores;';
+					await this.mysql.selectQuery(req, res, q);
 				} 
 				else
 				{
 					return res.status(401).json({
 			          	message: "UnAuthorized",
 			        });
-				}*/
-
-		    });
-
-			
+				}
+			}
+			catch(e){
+		    	res.status(400).json({message: 'Token not valid'})
+		   	}
 
 		} else {
 		    return res.status(401).json({
@@ -61,12 +45,25 @@ export default class StoreController {
 	async storeDetail(req, res) {
 		//Display a record.
 		if (req.headers.authorization) {
-			if (this.tokenVerify(req, res, req.headers.authorization) == 1) {
-				let storeID = req.params.id
-				let q = 'SELECT * FROM stores WHERE store_id = '+storeID+';';
-				this.mysql.selectQuery(req, res, q);
+			try{
+				const decoded = await jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
+
+				if ( decoded != undefined) {
+					let storeID = req.params.id
+					let q = 'SELECT * FROM stores WHERE store_id = '+storeID+';';
+					this.mysql.selectQuery(req, res, q);
+				} 
+				else
+				{
+					return res.status(401).json({
+			          	message: "UnAuthorized",
+			        });
+				}
 			}
-			
+			catch(e){
+		    	res.status(400).json({message: 'Token not valid'})
+		   	}
+
 		} else {
 		    return res.status(401).json({
 		      message: "UnAuthorized",
@@ -77,11 +74,24 @@ export default class StoreController {
 	async storeSearch(req, res) {
 		//Display a record.
 		if (req.headers.authorization) {
-			if (this.tokenVerify(req, res, req.headers.authorization) == 1) {
-				let searchquery = req.params.query
-				let q = 'SELECT store_id, name FROM stores WHERE name  LIKE "%'+searchquery+'%" LIMIT 5;';
-				this.mysql.selectQuery(req, res, q);
+			try{
+				const decoded = await jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
+
+				if ( decoded != undefined) {
+					let searchquery = req.params.query
+					let q = 'SELECT store_id, name FROM stores WHERE name  LIKE "%'+searchquery+'%" LIMIT 5;';
+					this.mysql.selectQuery(req, res, q);
+				} 
+				else
+				{
+					return res.status(401).json({
+			          	message: "UnAuthorized",
+			        });
+				}
 			}
+			catch(e){
+		    	res.status(400).json({message: 'Token not valid'})
+		   	}
 			
 		} else {
 		    return res.status(401).json({
@@ -98,37 +108,53 @@ export default class StoreController {
 		//Store a newly created resource in storage.
 	} 
 
-	update(req, res) {
+	async update(req, res) {
+
 		//Update the specified resource in storage.
 		if (req.headers.authorization) {
-			if (this.tokenVerify(req, res, req.headers.authorization) == 1) {
+			try{
+				const decoded = await jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
+				console.log(decoded);
+				if ( decoded != undefined) {
 
-				if (req.body.name) {
-				    let name = req.body.name;
-				} else {
-				  	return res.status(204).json({
-				      message: "Need more information for update resource.",
-				    });
-				}
-				if (req.body.description) {
-				    let desc = req.body.description;
-				} else {
-				    return res.status(204).json({
-				      message: "Need more information for update resource.",
-				    });
-				}
-				if (req.params.id) {
-				    let storeID = req.params.id;
-				} else {
-				    return res.status(204).json({
-				      message: "Need more information for update resource.",
-				    });
-				}
+					let name, desc, storeID;
+					
+					if (req.body.name) {
+					    name = req.body.name;
+					} else {
+					  	return res.status(204).json({
+					      message: "Need more information for update resource.",
+					    });
+					}
+					if (req.body.description) {
+					    desc = req.body.description;
+					} else {
+					    return res.status(204).json({
+					      message: "Need more information for update resource.",
+					    });
+					}
+					if (req.params.id) {
+					    storeID = req.params.id;
+					} else {
+					    return res.status(204).json({
+					      message: "Need more information for update resource.",
+					    });
+					}
 
-				let q = 'UPDATE `stores` SET `name` = "'+ name +'", `description` = "'+ desc +'" WHERE `stores`.`store_id` = '+ storeID +';';
-				//console.log(q);
-				this.mysql.updateQuery(req, res, q)
+					let q = 'UPDATE `stores` SET `name` = "'+ name +'", `description` = "'+ desc +'" WHERE `stores`.`store_id` = '+ storeID +';';
+					//console.log(q);
+					this.mysql.updateQuery(req, res, q)
+				} 
+				else
+				{
+					return res.status(401).json({
+			          	message: "UnAuthorized",
+			        });
+				}
 			}
+			catch(e){
+		    	res.status(400).json({message: 'Token not valid'})
+		   	}
 			
 		} else {
 		    return res.status(401).json({

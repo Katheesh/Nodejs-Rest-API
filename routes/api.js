@@ -22,8 +22,8 @@ export default class ApiController {
    }
 
    @get('/stores')
-   stores(req, res) {
-      this.store.storeList(req, res);
+   stores(req, res, next) {
+      this.store.storeList(req, res, next);
    }
 
    @get('/store/:id')
@@ -36,7 +36,7 @@ export default class ApiController {
       this.store.storeSearch(req, res);
    }
 
-   @put('/store:update/:id')
+   @put('/store/update/:id')
    update(req, res) {
       this.store.update(req, res);
    }
